@@ -50,7 +50,7 @@ module.exports = {
   badge_rank_score_img: `https://cos.ap-guangzhou.myqcloud.com/maopu-1251740905/系统/badge_rank_score.png`,
 
   // 猫猫领养状态字符串，对应数据库cat.adopt中的数字下标
-  cat_status_adopt: ["未领养", "已领养", "寻找领养中"],
+  cat_status_adopt: ["未领养", "已领养", "寻找领养中", "不知所踪"],
   // 首页漂浮的领养Logo对应的状态
   cat_status_adopt_target: "寻找领养中",
 
@@ -75,7 +75,7 @@ module.exports = {
     // 关于页，pages/info/info
     info: {
       share_tip: "关于",
-      slogan: "拍照记录校园内猫猫的成长轨迹",
+      slogan: "拍照记录校园内猫猫的成长轨迹\n*领养率与绝育率排除失踪喵口/喵星住户",
     },
     // 猫猫详情页，pages/genealogy/detailCat/detailCat
     detail_cat: {
