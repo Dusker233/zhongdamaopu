@@ -197,13 +197,19 @@ Page({
     // 所有领养
     const adoptQf = { adopt: 1, deleted: { $ne: 1 } };
     // 所有绝育量
-    const sterilizedQf = { sterilized: true, deleted: { $ne: 1 } };
+    const sterilizedQf = { sterilized: true, adopt: {$ne: 3}, to_star: {$ne: true}, deleted: {$ne: 1} };
     // 去除已领养、失踪、去喵星的猫猫
     const currentCatsQf = {
       adopt: { $ne: 1 },
       to_star: { $ne: true },
       missing: { $ne: true },
       deleted: { $ne: 1 }
+    };
+    // 去掉走丢or死掉的猫
+    const FilteredCatQf = {
+      adopt: { $ne: 3 },
+      to_star: { $ne: true },
+      deleted: {$ne: 1}
     };
 
     const { result: numAllCats } = await app.mpServerless.db.collection('cat').count(allCatQf);
@@ -212,10 +218,11 @@ Page({
     const { result: numSterilized } = await app.mpServerless.db.collection('cat').count(sterilizedQf);
     const { result: numAdoptQf } = await app.mpServerless.db.collection('cat').count(adoptQf);
     const { result: numCurrentCats } = await app.mpServerless.db.collection('cat').count(currentCatsQf);
+    const { result: numFilteredCat } = await app.mpServerless.db.collection('cat').count(FilteredCatQf);
 
     // 计算绝育率
-    const adoptRate = (numAdoptQf / numAllCats * 100).toFixed(1);
-    const sterilizationRate = (numSterilized / numAllCats * 100).toFixed(1);
+    const adoptRate = (numAdoptQf / numFilteredCat * 100).toFixed(2);
+    const sterilizationRate = (numSterilized / numFilteredCat * 100).toFixed(2);
 
     this.setData({
       numAllCats: numAllCats,
